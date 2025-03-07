@@ -1,55 +1,104 @@
 body {
     font-family: Arial, sans-serif;
-    color: #333;
+    color: #f5efef;
     margin: 0;
     padding: 20px;
     text-align: center;
     background-color: #f4f4f4;
+    background-image: url('imagenes/350.jpg');
+    background-size: cover; /* Ajusta el tamaño de la imagen */
+    background-position: center; /* Centra la imagen */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
 }
 
 h1 {
-    color: #333;
+    color: #f9f4f4;
     font-size: 24px;
     margin-bottom: 20px;
 }
 
-.container {
-    max-width: 800px;
+.main-container {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
 }
 
+.left-panel {
+    width: 40%;
+    padding-right: 20px;
+}
+
+.right-panel {
+    width: 60%;
+}
+
 .controls {
     margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Bordes más redondeados */
+    padding: 25px; /* Más espacio interno */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    margin-top: 20px;
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
+}
+
+.control-group {
+    margin-bottom: 20px; /* Más espacio entre grupos */
 }
 
 .controls label {
     font-size: 14px;
     color: #555;
-    margin-right: 10px;
+    display: block;
+    margin-bottom: 8px; /* Más espacio debajo de la etiqueta */
+    font-weight: bold;
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 0.5px; /* Espaciado entre letras */
 }
 
 .controls input {
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 8px;
+    width: 100%;
+    border: 2px solid #ddd; /* Borde más grueso */
+    border-radius: 8px; /* Bordes más redondeados */
+    padding: 12px; /* Más espacio interno */
     font-size: 14px;
-    margin-right: 10px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: #f9f9f9; /* Fondo más claro */
+}
+
+.controls input:focus {
+    border-color: #4CAF50;
+    outline: none;
+    box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Sombra al enfocar */
 }
 
 .controls button {
+    width: 100%;
     background-color: #4CAF50;
     border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    font-size: 14px;
+    border-radius: 8px; /* Bordes más redondeados */
+    padding: 14px 20px; /* Más espacio interno */
+    font-size: 16px;
     color: white;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 15px; /* Más espacio arriba del botón */
+    font-weight: bold; /* Texto en negrita */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    letter-spacing: 1px; /* Espaciado entre letras */
 }
 
 .controls button:hover {
     background-color: #45a049;
+    transform: translateY(-2px); /* Efecto de elevación al pasar el mouse */
+}
+
+.controls button:active {
+    transform: translateY(0); /* Efecto de hundimiento al hacer clic */
 }
 
 canvas {
@@ -62,20 +111,25 @@ canvas {
 }
 
 .summary-container {
-    background-color: #fff;
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
     border: 1px solid #ddd;
-    border-radius: 10px;
-    padding: 15px;
+    border-radius: 15px; /* Bordes más redondeados */
+    padding: 25px; /* Más espacio interno */
     margin: 20px 0;
     font-family: Arial, sans-serif;
     color: #333;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+    backdrop-filter: blur(5px); /* Efecto de desenfoque */
 }
+
 .progress-bar {
-    width: 100%;
+    width: 50%;
     height: 10px;
     background-color: #ddd;
     border-radius: 5px;
     margin: 20px 0;
+    margin-left: 25%;
+    margin-right: 20%;
 }
 
 .progress {
