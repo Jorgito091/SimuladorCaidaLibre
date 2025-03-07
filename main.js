@@ -2,57 +2,58 @@ const canvas = document.getElementById("fallCanvas");
 const ctx = canvas.getContext("2d");
 const startButton = document.getElementById("startButton");
 const heightInput = document.getElementById("heightInput");
+const gravityInput = document.getElementById("gravityInput"); 
 const summaryContainer = document.getElementById("summaryContainer");
-const progressBar = document.getElementById("progress"); // Nueva referencia a la barra de progreso
+const progressBar = document.getElementById("progress");
 
-// Constantes
-const g = 9.81; // Gravedad en m/s²
-const pixelsPerMeter = 50; // 50 píxeles = 1 metro
+// Variables
+let g = 9.81; // Gravedad inicial en m/s²
+let pixelsPerMeter = 50; // 50 píxeles = 1 metro
 let animationFrame;
 let elapsedTime = 0; // Tiempo acumulado en segundos
 let startTime = 0; // Marca de tiempo de inicio
 
-// Propiedades del objeto
+
 let ball = {
     x: canvas.width / 2,
     y: 0,
     radius: 20,
     velocityY: 0,
-    ground: canvas.height - 10, // Suelo en píxeles
-    initialHeight: 0, // Altura inicial en metros
+    ground: canvas.height - 10, 
+    initialHeight: 0,
 };
 
-// Ajusta el tamaño del canvas en función de la altura inicial
+
 function adjustCanvasSize() {
-    const newHeight = ball.initialHeight * pixelsPerMeter + 100; // Agregar margen extra
-    canvas.height = Math.max(newHeight, 500); // Evitar que sea menor al valor mínimo
+    const newHeight = ball.initialHeight * pixelsPerMeter + 100; 
+    canvas.height = Math.max(newHeight, 500); 
     ball.ground = canvas.height - 10;
 }
 
-// Reinicia el objeto a su posición inicial
+
 function resetBall() {
     adjustCanvasSize();
     ball.y = ball.radius;
     ball.velocityY = 0;
     elapsedTime = 0;
-    summaryContainer.innerHTML = ""; // Limpiar el resumen anterior
-    progressBar.style.width = "0%"; // Reiniciar la barra de progreso
+    summaryContainer.innerHTML = ""; 
+    progressBar.style.width = "0%"; 
 }
 
-// Actualiza la posición del objeto y mide el tiempo de caída
+
 function update(deltaTime) {
     ball.velocityY += g * deltaTime * pixelsPerMeter;
     ball.y += ball.velocityY * deltaTime;
 
     if (ball.y + ball.radius >= ball.ground) {
         ball.y = ball.ground - ball.radius;
-        elapsedTime = (performance.now() - startTime) / 1000; // Calcular tiempo real de caída
+        elapsedTime = (performance.now() - startTime) / 1000; 
         showSummary();
         cancelAnimationFrame(animationFrame);
     }
 }
 
-// Dibuja el objeto en el canvas
+
 function draw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.beginPath();
@@ -62,7 +63,21 @@ function draw() {
     ctx.closePath();
 }
 
-// Actualiza la barra de progreso en función de la posición de la pelota
+function updatePPM() {
+    let heightValue = parseFloat(heightInput.value);
+    if (!isNaN(heightValue) && heightValue > 0) {
+        // Ajustar PPM para que la altura máxima del canvas no supere los 500 píxeles
+        const maxCanvasHeight = 500; 
+        pixelsPerMeter = maxCanvasHeight / heightValue; 
+        
+        resetBall(); 
+    } else {
+        alert("Por favor, ingrese una altura válida.");
+    }
+}
+
+
+
 function updateProgress() {
     const totalDistance = ball.initialHeight * pixelsPerMeter; // Distancia total en píxeles
     const currentDistance = ball.y; // Posición actual de la pelota en píxeles
@@ -111,8 +126,12 @@ function showSummary() {
 
 // Evento para iniciar la simulación
 startButton.addEventListener("click", function () {
+    updatePPM();
     ball.initialHeight = parseFloat(heightInput.value);
+    g = parseFloat(gravityInput.value); // Actualizar la gravedad con el valor del input
+    
     resetBall();
+    
     startTime = 0; // Resetear tiempo de inicio para nueva simulación
     requestAnimationFrame(animate);
 });
